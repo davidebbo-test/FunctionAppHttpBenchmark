@@ -32,7 +32,7 @@ namespace FunctionAppHttpBenchmark
             for (long i = 0; i < iterations; i++) { }
 
             var response = req.CreateResponse(HttpStatusCode.OK, "Done");
-            response.Headers.Add("X-server", "aaa");
+            response.Headers.Add("X-server", Environment.GetEnvironmentVariable("COMPUTERNAME"));
             return response;
         }
     }
