@@ -19,6 +19,7 @@ namespace FunctionAppHttpBenchmark
             long memory = req.GetLongQueryStringParam("AllocInMB", 0);
             int sleep = (int)req.GetLongQueryStringParam("SleepInMS", 0);
             long iterations = req.GetLongQueryStringParam("LoopSpins", 0);
+            int matrixSize = (int)req.GetLongQueryStringParam("MatrixSize", 0);
             var rnd = new Random();
 
             // Allocate memory and fill it with random bytes
@@ -30,6 +31,12 @@ namespace FunctionAppHttpBenchmark
 
             // Spin the CPU
             for (long i = 0; i < iterations; i++) { }
+
+            // Do matrix multiplications
+            if (matrixSize > 0)
+            {
+                Matrix.DoMatrixMultiplication(matrixSize);
+            }
 
             var response = req.CreateResponse(HttpStatusCode.OK, "Done");
             response.Headers.Add("X-server", Environment.GetEnvironmentVariable("COMPUTERNAME"));
