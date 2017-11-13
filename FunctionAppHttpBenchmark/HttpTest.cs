@@ -14,8 +14,6 @@ namespace FunctionAppHttpBenchmark
         [FunctionName("HttpTest")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
-            //log.Info("C# HTTP trigger function processed a request.");
-
             long memory = req.GetLongQueryStringParam("AllocInMB", 0);
             int sleep = (int)req.GetLongQueryStringParam("SleepInMS", 0);
             long iterations = req.GetLongQueryStringParam("LoopSpins", 0);
